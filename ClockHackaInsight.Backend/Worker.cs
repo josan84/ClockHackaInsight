@@ -56,36 +56,36 @@ namespace ClockHackInsight.Backend
 
                     var now = DateTime.Now;
 
-                    bool mustSend = false;
+                  //  bool mustSend = false;
 
                     var user = new User();
 
-                    if (user.Frequency.Frequency == MessageFrequency.Day)
-                    {
-                        if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromDays(-1))
-                        {
-                            mustSend = true;
-                        }
-                    }
-                    else if (user.Frequency.Frequency == MessageFrequency.Hour)
-                    {
-                        if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromHours(-1))
-                        {
-                            mustSend = true;
-                        }
-                    }
-                    else if (user.Frequency.Frequency == MessageFrequency.Minute)
-                    {
-                        if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromMinutes(-1))
-                        {
-                            mustSend = true;
-                        }
-                    }
+                    //if (user.Frequency.Frequency == MessageFrequency.Day)
+                    //{
+                    //    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromDays(-1))
+                    //    {
+                    //        mustSend = true;
+                    //    }
+                    //}
+                    //else if (user.Frequency.Frequency == MessageFrequency.Hour)
+                    //{
+                    //    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromHours(-1))
+                    //    {
+                    //        mustSend = true;
+                    //    }
+                    //}
+                    //else if (user.Frequency.Frequency == MessageFrequency.Minute)
+                    //{
+                    //    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromMinutes(-1))
+                    //    {
+                    //        mustSend = true;
+                    //    }
+                    //}
 
-                    if (mustSend)
-                    {
+                    //if (mustSend)
+                    //{
                         messageBroadcasterService.SendMessage(userData.Name, userData.Number, quote.Quote);
-                    }
+                   // }
 
                     var userFrequency = new UserFrequency
                     {

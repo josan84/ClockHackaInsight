@@ -17,7 +17,9 @@ namespace ClockHackaInsight.Backend.Helpers
             foreach (var user in users)
             {
                 var interval = GetFrequencyTimeSpan(user.Frequency.Frequency);
-                if (user.Frequency.LastMessaged.Add(interval) > DateTime.Now)
+
+                // if (user.Frequency.LastMessaged.Add(interval) > DateTime.Now)
+                if (user.Frequency.LastMessaged.Add(interval) < DateTime.Now)
                 {
                     usersToMessage.Add(new PollingResponse()
                     {

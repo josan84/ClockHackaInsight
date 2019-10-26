@@ -24,8 +24,8 @@ namespace ClockHackaInsight.Backend.TestData
                     Number = JoshNumber,
                     Frequency = new UserFrequency()
                     {
-                        LastMessaged = new DateTime(),
-                        Frequency = MessageFrequency.Day
+                        LastMessaged = DateTime.Now.AddMinutes(-2),
+                        Frequency = MessageFrequency.Minute
                     }
                 },
                 new User()
@@ -35,7 +35,7 @@ namespace ClockHackaInsight.Backend.TestData
                     Number = JacobNumber,
                     Frequency = new UserFrequency()
                     {
-                        LastMessaged = new DateTime(),
+                        LastMessaged = DateTime.Now.AddDays(-2),
                         Frequency = MessageFrequency.Day
                     }
                 },
@@ -46,7 +46,7 @@ namespace ClockHackaInsight.Backend.TestData
                     Number = TobyNumber,
                     Frequency = new UserFrequency()
                     {
-                        LastMessaged = new DateTime(),
+                        LastMessaged = DateTime.Now,
                         Frequency = MessageFrequency.Day
                     }
                 },
@@ -57,8 +57,8 @@ namespace ClockHackaInsight.Backend.TestData
                     Number = JoseNumber,
                     Frequency = new UserFrequency()
                     {
-                        LastMessaged = new DateTime(),
-                        Frequency = MessageFrequency.Day
+                        LastMessaged = DateTime.Now.AddHours(-2),
+                        Frequency = MessageFrequency.Hour
                     }
                 },
             };
