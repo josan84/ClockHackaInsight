@@ -41,6 +41,7 @@ namespace ClockHackaInsight.Backend
             services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
 
             services.AddTransient<IUserService, UserService>();
+          //  services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

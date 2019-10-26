@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ClockHackaInsight.Backend.Helpers;
+using ClockHackaInsight.Backend.Models;
+using ClockHackaInsight.Backend.Repositories;
 using ClockHackaInsight.Backend.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -25,13 +27,15 @@ namespace ClockHackInsight.Backend
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-                IMrMotivator mrMotivator = new MrMotivator();
+                var motivationalQuoteService = new MotivationalQuotesService(new DocumentDBRepository<MotivationalQuote>("Quotes"));
 
-                var motivationalQuote = mrMotivator.MotivateMeOnce();
+                var randomQuote = motivationalQuoteService.GetRandomQuote();
+
+                MotivationalQuote quote = randomQuote.Result;
 
                 var messageBroadcasterService = new MessageBroadcastService();
 
-               // messageBroadcasterService.SendMessage();
+                messageBroadcasterService.SendMessage("", "", quote.Quote);
 
                 await Task.Delay(3000, stoppingToken);
             }
