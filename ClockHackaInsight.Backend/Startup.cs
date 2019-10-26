@@ -15,11 +15,7 @@ namespace ClockHackaInsight.Backend
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-
-            var messageBroadcastService = new MessageBroadcastService();
-
-            // messageBroadcastService.SendMessage();
+            Configuration = configuration;           
         }
 
         public IConfiguration Configuration { get; }
