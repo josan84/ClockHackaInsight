@@ -28,7 +28,7 @@ namespace ClockHackaInsight.Backend.Controllers
 
                 //if (content.Contains("STOP", System.StringComparison.OrdinalIgnoreCase))
                 //{
-                    var user = await _userService.GetUserByNumber(from);
+                    var user = await _userService.GetUserByName("Jacob");
                     if (user.Frequency == null)
                         user.Frequency = new Models.UserFrequency();
 
