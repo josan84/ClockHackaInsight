@@ -6,6 +6,7 @@ namespace ClockHackaInsight.Backend.Enums
 {
     public enum MessageFrequency
     {
+        Never,
         Minute,
         Hour,
         Day
