@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ClockHackaInsight.Backend.Controllers;
-using ClockHackaInsight.Backend.Enums;
 using ClockHackaInsight.Backend.Helpers;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Repositories;
@@ -56,36 +53,9 @@ namespace ClockHackInsight.Backend
 
                     var now = DateTime.Now;
 
-                  //  bool mustSend = false;
-
                     var user = new User();
 
-                    //if (user.Frequency.Frequency == MessageFrequency.Day)
-                    //{
-                    //    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromDays(-1))
-                    //    {
-                    //        mustSend = true;
-                    //    }
-                    //}
-                    //else if (user.Frequency.Frequency == MessageFrequency.Hour)
-                    //{
-                    //    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromHours(-1))
-                    //    {
-                    //        mustSend = true;
-                    //    }
-                    //}
-                    //else if (user.Frequency.Frequency == MessageFrequency.Minute)
-                    //{
-                    //    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromMinutes(-1))
-                    //    {
-                    //        mustSend = true;
-                    //    }
-                    //}
-
-                    //if (mustSend)
-                    //{
-                        messageBroadcasterService.SendMessage(userData.Name, userData.Number, quote.Quote);
-                   // }
+                    messageBroadcasterService.SendMessage(userData.Name, userData.Number, quote.Quote);
 
                     var userFrequency = new UserFrequency
                     {
@@ -98,7 +68,7 @@ namespace ClockHackInsight.Backend
 
                     user.Frequency = userFrequency;
 
-                   // await userService.UpdateUser(userData.Id, user);
+                    // await userService.UpdateUser(userData.Id, user);
                 }
 
                 await Task.Delay(3000, stoppingToken);
