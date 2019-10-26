@@ -19,12 +19,7 @@ namespace ClockHackaInsight.Backend.Controllers
         {
             this.userService = userService;
         }
-        // GET: api/User
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+       
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "Get")]
@@ -44,22 +39,17 @@ namespace ClockHackaInsight.Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] User user)
         {
-            var newUser = await userService.SaveUser(user);
+            var newUser = await userService.CreateUser(user);
             return Ok(newUser);
-           
         }
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public async void Put(string id, [FromBody] User value)
+        public async Task<IActionResult> Put(string id, [FromBody] User value)
         {
-            await userService.UpdateUser(id, value);
+            var updatedUser = await userService.SaveUser(id, value);
+            return Ok(updatedUser);
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
