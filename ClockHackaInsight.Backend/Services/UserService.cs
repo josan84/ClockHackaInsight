@@ -30,6 +30,11 @@ namespace ClockHackaInsight.Backend.Services
 
         public async Task<User> CreateUser(User newUser)
         {
+            newUser.Frequency = new UserFrequency()
+            {
+                Frequency = Enums.MessageFrequency.Day
+            };
+
             var document = await userRepository.CreateItemAsync(newUser);
             newUser.Id = document.Id;
             return newUser;
