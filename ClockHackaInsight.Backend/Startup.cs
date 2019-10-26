@@ -34,10 +34,12 @@ namespace ClockHackaInsight.Backend
         {
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                                                                        .AllowAnyMethod()
-                                                                        .AllowAnyHeader()));
+                                                                       .AllowAnyHeader()));
             services.AddControllers();
 
             services.AddSingleton<IDocumentDBRepository<User>>(new DocumentDBRepository<User>("Users"));
+            services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
+
             services.AddTransient<IUserService, UserService>();
         }
 
@@ -53,6 +55,7 @@ namespace ClockHackaInsight.Backend
             {
                 options.AllowAnyOrigin();
                 options.AllowAnyMethod();
+                options.AllowAnyHeader();
             });
 
             app.UseHttpsRedirection();
