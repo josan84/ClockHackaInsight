@@ -28,11 +28,23 @@ namespace ClockHackaInsight.Backend.Services
             return results.FirstOrDefault();
         }
 
-        public async Task<User> SaveUser(User newUser)
+        public async Task<User> CreateUser(User newUser)
         {
             var document = await userRepository.CreateItemAsync(newUser);
             newUser.Id = document.Id;
             return newUser;
+        }
+
+        public async Task<User> SaveUser(string id, User user)
+        {
+            var userToUpdate = await userRepository.GetItemAsync(id);
+
+            userToUpdate.Name = user.Name;
+            userToUpdate.Number = user.Number;
+            userToUpdate.Frequency = user.Frequency;
+
+            await userRepository.UpdateItemAsync(id, userToUpdate);
+            return user;
         }
     }
 }
