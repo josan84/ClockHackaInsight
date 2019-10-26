@@ -30,7 +30,14 @@ namespace ClockHackaInsight.Backend.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(string id)
         {
-            return Ok(await userService.GetUser(id));
+            return Ok(await userService.GetUserById(id));
+        }
+
+        // GET: api/User/5
+        [HttpGet("name/{name}", Name = "GetByName")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            return Ok(await userService.GetUserByName(name));
         }
 
         // POST: api/User

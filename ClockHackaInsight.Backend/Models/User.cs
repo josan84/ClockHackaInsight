@@ -11,6 +11,7 @@ namespace ClockHackaInsight.Backend.Models
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public string Name { get; set; }
-        public string Number { get; set; }
+        public string Number { get;  set; }
+        public UserFrequency Frequency { get; set; }
     }
 }

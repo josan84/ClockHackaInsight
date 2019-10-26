@@ -14,7 +14,7 @@ namespace ClockHackaInsight.Backend.TestData
             {
                 new User()
                 {
-                    Id = User.GenerateId(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = "joshua",
                     Number = "07952316758",
                     Frequency = new UserFrequency()
@@ -25,7 +25,7 @@ namespace ClockHackaInsight.Backend.TestData
                 },
                 new User()
                 {
-                    Id = User.GenerateId(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = "jacob",
                     Number = "12345",
                     Frequency = new UserFrequency()
@@ -36,7 +36,7 @@ namespace ClockHackaInsight.Backend.TestData
                 },
                 new User()
                 {
-                    Id = User.GenerateId(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = "toby",
                     Number = "987654",
                     Frequency = new UserFrequency()
@@ -47,7 +47,7 @@ namespace ClockHackaInsight.Backend.TestData
                 },
                 new User()
                 {
-                    Id = User.GenerateId(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = "jose",
                     Number = "68309298",
                     Frequency = new UserFrequency()
