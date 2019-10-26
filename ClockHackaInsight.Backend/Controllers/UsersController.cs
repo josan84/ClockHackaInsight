@@ -35,6 +35,12 @@ namespace ClockHackaInsight.Backend.Controllers
             return Ok(await userService.GetUserByName(name));
         }
 
+        [HttpGet()]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await userService.GetAllUsers());
+        }
+
         // POST: api/User
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] User user)

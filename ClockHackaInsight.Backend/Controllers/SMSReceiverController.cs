@@ -24,11 +24,11 @@ namespace ClockHackaInsight.Backend.Controllers
             try
             {
                 if (from.StartsWith("44"))
-                    from = "0" + from[1..];
+                    from = "0" + from[2..];
 
                 //if (content.Contains("STOP", System.StringComparison.OrdinalIgnoreCase))
                 //{
-                    var user = await _userService.GetUserByName("Jacob");
+                    var user = await _userService.GetUserByNumber(from);
                     if (user.Frequency == null)
                         user.Frequency = new Models.UserFrequency();
 

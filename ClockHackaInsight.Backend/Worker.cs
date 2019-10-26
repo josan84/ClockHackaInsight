@@ -49,7 +49,8 @@ namespace ClockHackInsight.Backend
 
                     var now = DateTime.Now;
 
-                    messageBroadcasterService.SendMessage(user.Name, user.Number, randomQuote.Quote);
+                    messageBroadcasterService.SendMessage(user.Name, user.Number, 
+                        $"{randomQuote.Quote}. To stop receiving these messages reply STOP.");
 
                     var userFrequency = new UserFrequency
                     {
