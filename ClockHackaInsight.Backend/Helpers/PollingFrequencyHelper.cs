@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ClockHackaInsight.Backend.Helpers
 {
-    public class PollingFrequencyHelper
+    public class PollingFrequencyHelper : IPollingFrequencyHelper
     {
         public List<PollingResponse> GetUsersToMessage()
         {
