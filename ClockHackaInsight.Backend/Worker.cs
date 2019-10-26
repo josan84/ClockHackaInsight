@@ -41,7 +41,7 @@ namespace ClockHackInsight.Backend
 
                 var userService = new UserService(new DocumentDBRepository<User>("Users"));
 
-                var users = userService.GetAllUsers().Result;
+                var users = await userService.GetAllUsers();
 
                 foreach (var user in users)
                 {
@@ -49,7 +49,8 @@ namespace ClockHackInsight.Backend
 
                     var now = DateTime.Now;
 
-                    messageBroadcasterService.SendMessage(user.Name, user.Number, randomQuote.Quote);
+                    messageBroadcasterService.SendMessage(user.Name, user.Number, 
+                        $"{randomQuote.Quote}. To stop receiving these messages reply STOP.");
 
                     var userFrequency = new UserFrequency
                     {

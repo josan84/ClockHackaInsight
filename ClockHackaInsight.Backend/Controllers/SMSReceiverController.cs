@@ -15,8 +15,8 @@ namespace ClockHackaInsight.Backend.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(
+        [HttpGet]
+        public async Task<IActionResult> Get(
             [FromQuery] string to, [FromQuery] string from,
             [FromQuery] string keyword, [FromQuery] string id,
             [FromQuery] string content)
@@ -24,15 +24,18 @@ namespace ClockHackaInsight.Backend.Controllers
             try
             {
                 if (from.StartsWith("44"))
-                    from = "0" + from[1..];
+                    from = "0" + from[2..];
 
-                var user = await _userService.GetUserByNumber(from);
-                if (user.Frequency == null)
-                    user.Frequency = new Models.UserFrequency();
+                //if (content.Contains("STOP", System.StringComparison.OrdinalIgnoreCase))
+                //{
+                    var user = await _userService.GetUserByNumber(from);
+                    if (user.Frequency == null)
+                        user.Frequency = new Models.UserFrequency();
 
-                user.Frequency.Frequency = Enums.MessageFrequency.Never;
+                    user.Frequency.Frequency = Enums.MessageFrequency.Never;
 
-                await _userService.SaveUser(user.Id, user);
+                    await _userService.SaveUser(user.Id, user);
+                //}
             }
             finally
             {

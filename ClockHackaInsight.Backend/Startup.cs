@@ -2,6 +2,7 @@ using ClockHackaInsight.Backend.Helpers;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Repositories;
 using ClockHackaInsight.Backend.Services;
+using ClockHackInsight.Backend;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +34,7 @@ namespace ClockHackaInsight.Backend
             services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
 
             services.AddTransient<IUserService, UserService>();
-
+            services.AddHostedService<Worker>();
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new Info { Title = "Insight Investment Clockwork Backend", Version = "v1" });
