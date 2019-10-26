@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ClockHackaInsight.Backend.Controllers;
+using ClockHackaInsight.Backend.Enums;
 using ClockHackaInsight.Backend.Helpers;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Repositories;
@@ -15,6 +16,8 @@ namespace ClockHackInsight.Backend
 {
     public class Worker : BackgroundService
     {
+        const int SECURITY_COUNTER = 5;
+
         private readonly ILogger<Worker> _logger;
 
         public Worker(ILogger<Worker> logger)
@@ -24,8 +27,15 @@ namespace ClockHackInsight.Backend
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            int iterations = 1;
+
             while (!stoppingToken.IsCancellationRequested)
             {
+                if (iterations == SECURITY_COUNTER)
+                {
+                    break;
+                }
+
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
                 var motivationalQuoteService = new MotivationalQuotesService(new DocumentDBRepository<MotivationalQuote>("Quotes"));
@@ -42,25 +52,58 @@ namespace ClockHackInsight.Backend
 
                     MotivationalQuote quote = randomQuote.Result;
 
-                    messageBroadcasterService.SendMessage(userData.Name, userData.Number, quote.Quote);
+                    var userService = new UserService(new DocumentDBRepository<User>("Users"));
 
-                    // update last user datetime
-                    var usersContoller = new UsersController(new UserService(new DocumentDBRepository<User>("Users")));
+                    var now = DateTime.Now;
+
+                    bool mustSend = false;
 
                     var user = new User();
-                    var userFrequency = new UserFrequency();
 
-                    userFrequency.LastMessaged = DateTime.Now;
+                    if (user.Frequency.Frequency == MessageFrequency.Day)
+                    {
+                        if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromDays(-1))
+                        {
+                            mustSend = true;
+                        }
+                    }
+                    else if (user.Frequency.Frequency == MessageFrequency.Hour)
+                    {
+                        if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromHours(-1))
+                        {
+                            mustSend = true;
+                        }
+                    }
+                    else if (user.Frequency.Frequency == MessageFrequency.Minute)
+                    {
+                        if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromMinutes(-1))
+                        {
+                            mustSend = true;
+                        }
+                    }
+
+                    if (mustSend)
+                    {
+                        messageBroadcasterService.SendMessage(userData.Name, userData.Number, quote.Quote);
+                    }
+
+                    var userFrequency = new UserFrequency
+                    {
+                        LastMessaged = now
+                    };
+
                     user.Id = userData.Id;
                     user.Name = userData.Name;
                     user.Number = userData.Number;
 
                     user.Frequency = userFrequency;
 
-                    usersContoller.Put(userData.Id, user);
+                   // await userService.UpdateUser(userData.Id, user);
                 }
 
                 await Task.Delay(3000, stoppingToken);
+
+                iterations++;
             }
         }
     }

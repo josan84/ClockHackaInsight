@@ -51,9 +51,9 @@ namespace ClockHackaInsight.Backend.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] User value)
+        public async void Put(string id, [FromBody] User value)
         {
-            userService.UpdateUser(id, value);
+            await userService.UpdateUser(id, value);
         }
 
         // DELETE: api/ApiWithActions/5

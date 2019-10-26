@@ -8,6 +8,11 @@ namespace ClockHackaInsight.Backend.TestData
 {
     public static class UserFrequencyTestData
     {
+        const string JoshNumber = "447952316758";
+        const string JacobNumber = "447507100781";
+        const string TobyNumber = "447498330042";
+        const string JoseNumber = "447761389099";
+
         public static IEnumerable<User> GetUsers()
         {
             return new List<User>()
@@ -16,7 +21,7 @@ namespace ClockHackaInsight.Backend.TestData
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "joshua",
-                    Number = "07952316758",
+                    Number = JoshNumber,
                     Frequency = new UserFrequency()
                     {
                         LastMessaged = new DateTime(),
@@ -27,7 +32,7 @@ namespace ClockHackaInsight.Backend.TestData
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "jacob",
-                    Number = "12345",
+                    Number = JacobNumber,
                     Frequency = new UserFrequency()
                     {
                         LastMessaged = new DateTime(),
@@ -38,7 +43,7 @@ namespace ClockHackaInsight.Backend.TestData
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "toby",
-                    Number = "987654",
+                    Number = TobyNumber,
                     Frequency = new UserFrequency()
                     {
                         LastMessaged = new DateTime(),
@@ -49,7 +54,7 @@ namespace ClockHackaInsight.Backend.TestData
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "jose",
-                    Number = "68309298",
+                    Number = JoseNumber,
                     Frequency = new UserFrequency()
                     {
                         LastMessaged = new DateTime(),
