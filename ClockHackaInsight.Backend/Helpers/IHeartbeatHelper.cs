@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ClockHackaInsight.Backend.Models;
 using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend.Helpers
 {
-    public class IHeartbeatHelper
+    public interface IHeartbeatHelper
     {
+        public Task<bool> ExecuteHeartbeatProtocol(HeartbeatData heartbeat);
     }
 }

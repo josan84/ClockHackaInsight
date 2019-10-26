@@ -1,3 +1,4 @@
+using ClockHackaInsight.Backend.Helpers;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Repositories;
 using ClockHackaInsight.Backend.Services;
@@ -31,6 +32,7 @@ namespace ClockHackaInsight.Backend
                                                                        .AllowAnyHeader()));
             services.AddControllers();
 
+            services.AddSingleton<IHeartbeatHelper, HeartbeatHelper>();
             services.AddSingleton<IDocumentDBRepository<User>>(new DocumentDBRepository<User>("Users"));
             services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
 
