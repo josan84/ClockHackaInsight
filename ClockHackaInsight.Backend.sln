@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockHackaInsight.Backend", "ClockHackaInsight.Backend\ClockHackaInsight.Backend.csproj", "{D7C56A24-2B1A-49A4-A325-3F667928492D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockHackaInsight.Backend", "ClockHackaInsight.Backend\ClockHackaInsight.Backend.csproj", "{D7C56A24-2B1A-49A4-A325-3F667928492D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockHackInsight.Runner", "ClockHackInsight.Runner\ClockHackInsight.Runner.csproj", "{9F7DC1D6-4075-44CC-9CDA-29512FC1678D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D7C56A24-2B1A-49A4-A325-3F667928492D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7C56A24-2B1A-49A4-A325-3F667928492D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7C56A24-2B1A-49A4-A325-3F667928492D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F7DC1D6-4075-44CC-9CDA-29512FC1678D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F7DC1D6-4075-44CC-9CDA-29512FC1678D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F7DC1D6-4075-44CC-9CDA-29512FC1678D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F7DC1D6-4075-44CC-9CDA-29512FC1678D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
