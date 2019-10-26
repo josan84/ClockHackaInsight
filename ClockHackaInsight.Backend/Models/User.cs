@@ -7,15 +7,15 @@ namespace ClockHackaInsight.Backend.Models
 {
     public class User
     {
-
         public string Id { get; set; }
         public string Name { get; set; }
         public string Number { get; set; }
+        public UserFrequency Frequency { get; set; }
 
-        public string GenerateId()
+        public static string GenerateId()
         {
-            Id = Guid.NewGuid().ToString(); 
-            return Id;
+            var id = Guid.NewGuid().ToString(); 
+            return id;
         }
     }
 }
