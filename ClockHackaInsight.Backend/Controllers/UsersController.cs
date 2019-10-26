@@ -28,9 +28,9 @@ namespace ClockHackaInsight.Backend.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            return Ok(await userService.GetUser(id));
         }
 
         // POST: api/User

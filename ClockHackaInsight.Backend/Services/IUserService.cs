@@ -5,6 +5,8 @@ namespace ClockHackaInsight.Backend.Services
 {
     public interface IUserService
     {
+        Task<User> GetUser(string id);
         Task<User> SaveUser(User newUser);
+       
     }
 }

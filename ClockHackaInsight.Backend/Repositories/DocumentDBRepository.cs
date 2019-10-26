@@ -45,7 +45,7 @@ namespace ClockHackaInsight.Backend.Repositories
                 }
             }
         }
-
+       
         public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
         {
             IDocumentQuery<T> query = client.CreateDocumentQuery<T>(

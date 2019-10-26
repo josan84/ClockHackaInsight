@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend.Services
 {
-    public class MotivationalQuotesService
+    public class MotivationalQuotesService : IMotivationalQuotesService
     {
         private readonly IDocumentDBRepository<MotivationalQuote> motivationalQuoteRepository;
 
