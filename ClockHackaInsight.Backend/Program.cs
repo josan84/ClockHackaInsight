@@ -23,7 +23,7 @@ namespace ClockHackaInsight.Backend
             return Host.CreateDefaultBuilder(args)
           .ConfigureServices((hostContext, services) =>
           {
-               services.AddHostedService<Worker>();
+               // services.AddHostedService<Worker>();
           });
         }
     }
