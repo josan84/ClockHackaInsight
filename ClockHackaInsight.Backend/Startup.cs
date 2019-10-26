@@ -51,7 +51,7 @@ namespace ClockHackaInsight.Backend
             {
                 options.AllowAnyOrigin();
                 options.AllowAnyMethod();
-               
+                options.AllowAnyHeader();
             });
 
             app.UseHttpsRedirection();
