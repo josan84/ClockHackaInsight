@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ClockHackaInsight.Backend.Helpers;
+using ClockHackaInsight.Backend.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace ClockHackInsight.Runner
+namespace ClockHackInsight.Backend
 {
     public class Worker : BackgroundService
     {
@@ -22,10 +24,14 @@ namespace ClockHackInsight.Runner
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                
 
+                IMrMotivator mrMotivator = new MrMotivator();
 
+                var motivationalQuote = mrMotivator.MotivateMeOnce();
 
+                var messageBroadcasterService = new MessageBroadcastService();
+
+               // messageBroadcasterService.SendMessage();
 
                 await Task.Delay(3000, stoppingToken);
             }

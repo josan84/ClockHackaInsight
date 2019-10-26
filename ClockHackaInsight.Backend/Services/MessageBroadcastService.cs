@@ -1,30 +1,46 @@
-﻿using Clockwork;
+﻿using ClockHackaInsight.Backend.Models;
+using Clockwork;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace ClockHackaInsight.Backend
+namespace ClockHackaInsight.Backend.Services
 {
-    public class MessageBroadcastService
+    public class MessageBroadcastService : IMessageBroadcastService
     {
+        const string APIKey = "94cb22faffa3f64e4fca84afa78c7b472c97fd9f";
+
+        const string JoshNumber = "447952316758";
+        const string JacobNumber = "447507100781";
+        const string TobyNumber = "447498330042";
+        const string JoseNumber = "447761389099";
+
         public void SendMessage()
         {
-            string JoshNumber = "447952316758";
-            string JacobNumber = "";
-            string TobyNumber = "";
-            string JoseNumber = "";
+            Send("Josh", "447952316758", "Hello my love, guess who I am.");
+        }
 
+        public void SendMessage(User user, string messageContent)
+        {
+            Send(user.Name, user.Number, messageContent);
+        }
+
+        public void SendMessage(string userName, string userPhoneNumber, string messageContent)
+        {
+            Send(userName, userPhoneNumber, messageContent);
+        }
+
+        private void Send(string userName, string userPhoneNumber, string messageContent)
+        {
             try
             {
-                Clockwork.API api = new API("94cb22faffa3f64e4fca84afa78c7b472c97fd9f");
+                var api = new API(APIKey);
+
                 SMSResult result = api.Send(
                     new SMS
                     {
-                        To = JoshNumber,
-                        Message = "Hello my love, guess who I am."
-                    });
+                        To = userPhoneNumber,
+                        Message = $"Hello {userName}, {messageContent}"
+                    }); ;
 
                 if (result.Success)
                 {
@@ -59,6 +75,7 @@ namespace ClockHackaInsight.Backend
                 // Something else went wrong, the error message should help
                 Console.WriteLine("Unknown Exception: " + ex.Message);
             }
+
         }
     }
 }
