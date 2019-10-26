@@ -45,6 +45,7 @@ namespace ClockHackaInsight.Backend
             app.UseCors(options =>
             {
                 options.AllowAnyOrigin();
+                options.AllowAnyMethod();
             });
 
             app.UseHttpsRedirection();
