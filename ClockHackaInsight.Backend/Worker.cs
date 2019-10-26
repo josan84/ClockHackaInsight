@@ -41,7 +41,7 @@ namespace ClockHackInsight.Backend
 
                 var userService = new UserService(new DocumentDBRepository<User>("Users"));
 
-                var users = userService.GetAllUsers().Result;
+                var users = await userService.GetAllUsers();
 
                 foreach (var user in users)
                 {

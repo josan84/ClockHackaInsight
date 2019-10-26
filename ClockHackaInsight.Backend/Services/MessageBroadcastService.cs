@@ -39,7 +39,8 @@ namespace ClockHackaInsight.Backend.Services
                     new SMS
                     {
                         To = userPhoneNumber,
-                        Message = $"Hello {userName}, {messageContent}"
+                        Message = $"Hello {userName}, {messageContent}",
+                        From = "447860033922"
                     }); ;
 
                 if (result.Success)

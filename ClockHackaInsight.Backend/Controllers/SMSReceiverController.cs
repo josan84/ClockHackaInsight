@@ -15,8 +15,8 @@ namespace ClockHackaInsight.Backend.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(
+        [HttpGet]
+        public async Task<IActionResult> Get(
             [FromQuery] string to, [FromQuery] string from,
             [FromQuery] string keyword, [FromQuery] string id,
             [FromQuery] string content)
