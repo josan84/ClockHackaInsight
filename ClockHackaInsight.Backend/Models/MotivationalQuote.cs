@@ -7,5 +7,6 @@ namespace ClockHackaInsight.Backend.Models
 {
     public class MotivationalQuote
     {
+        public string Quote { get; set; }
     }
 }
