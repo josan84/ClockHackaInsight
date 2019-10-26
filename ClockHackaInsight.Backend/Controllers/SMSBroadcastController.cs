@@ -17,14 +17,7 @@ namespace ClockHackaInsight.Backend.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-
-        // GET: api/SMS/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
+        
         // POST: api/SMS
         [HttpPost]
         public void Post([FromBody] string value)
