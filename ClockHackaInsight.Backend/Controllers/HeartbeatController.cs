@@ -1,4 +1,5 @@
-﻿using ClockHackaInsight.Backend.Models;
+﻿using ClockHackaInsight.Backend.Helpers;
+using ClockHackaInsight.Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,14 +9,17 @@ namespace ClockHackaInsight.Backend.Controllers
     [ApiController]
     public class HeartbeatController : ControllerBase
     {
-        public HeartbeatController()
+        private readonly IHeartbeatHelper _helper;
+
+        public HeartbeatController(IHeartbeatHelper helper)
         {
+            _helper = helper;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] HeartbeatData heartbeat)
         {
-            return Ok(true);
+            return Ok(await _helper.ExecuteHeartbeatProtocol(heartbeat));
         }
     }
 }

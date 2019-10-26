@@ -59,6 +59,13 @@ namespace ClockHackaInsight.Backend.Services
             return newUser;
         }
 
+        public async Task<User> GetUserByNumber(string number)
+        {
+            var results = await userRepository.GetItemsAsync(u => u.Number == number);
+
+            return results.FirstOrDefault();
+        }
+
         public async Task<IEnumerable<User>> GetAllUsers()
         {
             return await userRepository.GetAllItems();
