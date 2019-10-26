@@ -13,7 +13,7 @@ namespace ClockHackInsight.Backend
 {
     public class Worker : BackgroundService
     {
-        const int SECURITY_COUNTER = 5;
+        const int SECURITY_COUNTER = 1;
 
         private readonly ILogger<Worker> _logger;
 
@@ -24,7 +24,7 @@ namespace ClockHackInsight.Backend
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            int iterations = 1;
+            int iterations = 0;
 
             while (!stoppingToken.IsCancellationRequested)
             {
