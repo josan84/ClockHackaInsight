@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend.Services
 {
-    interface IMessageBroadcastService
+    public interface IMessageBroadcastService
     {
         void SendMessage();
+        void SendMessage(string userName, string userPhoneNumber, string messageContent);
+
     }
 }
