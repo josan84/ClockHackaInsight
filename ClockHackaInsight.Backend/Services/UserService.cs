@@ -35,6 +35,9 @@ namespace ClockHackaInsight.Backend.Services
                 Frequency = Enums.MessageFrequency.Day
             };
 
+            newUser.MessagePreferences = new MessagePreferences();
+            newUser.EventPreference = new EventPreference();
+
             var document = await userRepository.CreateItemAsync(newUser);
             newUser.Id = document.Id;
             return newUser;
@@ -47,6 +50,8 @@ namespace ClockHackaInsight.Backend.Services
             userToUpdate.Name = user.Name;
             userToUpdate.Number = user.Number;
             userToUpdate.Frequency = user.Frequency;
+            userToUpdate.EventPreference = user.EventPreference;
+            userToUpdate.MessagePreferences = user.MessagePreferences;
 
             await userRepository.UpdateItemAsync(id, userToUpdate);
             return user;

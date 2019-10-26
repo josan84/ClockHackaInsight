@@ -18,7 +18,7 @@ namespace ClockHackaInsight.Backend.Services
 
         public async Task<MotivationalQuote> GetRandomQuote()
         {
-            var quotes = await motivationalQuoteRepository.GetItemsAsync(x => x.Quote != null);
+            var quotes = await motivationalQuoteRepository.GetItemsAsync(x => x.Id != null);
 
             var random = new Random();
 

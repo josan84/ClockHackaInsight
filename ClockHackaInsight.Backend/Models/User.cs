@@ -13,5 +13,7 @@ namespace ClockHackaInsight.Backend.Models
         public string Name { get; set; }
         public string Number { get;  set; }
         public UserFrequency Frequency { get; set; }
+        public MessagePreferences MessagePreferences { get; set; }
+        public EventPreference EventPreference { get; set; }
     }
-}
+}   
