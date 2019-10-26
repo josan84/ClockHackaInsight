@@ -21,6 +21,7 @@ namespace ClockHackaInsight.Backend.Helpers
                 {
                     usersToMessage.Add(new PollingResponse()
                     {
+                        Id = user.Id,
                         Name = user.Name,
                         Number = user.Number
                     });
