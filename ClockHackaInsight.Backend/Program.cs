@@ -21,10 +21,15 @@ namespace ClockHackaInsight.Backend
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-          .ConfigureServices((hostContext, services) =>
-          {
-               // services.AddHostedService<Worker>();
-          });
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder.UseStartup<Startup>();
+                    });
+          //  return Host.CreateDefaultBuilder(args)
+          //.ConfigureServices((hostContext, services) =>
+          //{
+          //     // services.AddHostedService<Worker>();
+          //});
         }
     }
 }
