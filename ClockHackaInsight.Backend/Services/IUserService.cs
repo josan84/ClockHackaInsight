@@ -9,6 +9,6 @@ namespace ClockHackaInsight.Backend.Services
         Task<User> GetUserByName(string name);
         Task<User> SaveUser(User newUser);
 
-        Task<User> UpdateUser(int id, User newUser);
+        Task<User> UpdateUser(string id, User newUser);
     }
 }

@@ -35,9 +35,9 @@ namespace ClockHackaInsight.Backend.Services
             return newUser;
         }
 
-        public async Task<User> UpdateUser(int id, User newUser)
+        public async Task<User> UpdateUser(string id, User newUser)
         {
-            await userRepository.UpdateItemAsync(id.ToString(), newUser);
+            await userRepository.UpdateItemAsync(id, newUser);
 
             return newUser;
         }
