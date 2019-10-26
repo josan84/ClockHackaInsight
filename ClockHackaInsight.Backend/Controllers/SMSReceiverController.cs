@@ -26,13 +26,16 @@ namespace ClockHackaInsight.Backend.Controllers
                 if (from.StartsWith("44"))
                     from = "0" + from[1..];
 
-                var user = await _userService.GetUserByNumber(from);
-                if (user.Frequency == null)
-                    user.Frequency = new Models.UserFrequency();
+                //if (content.Contains("STOP", System.StringComparison.OrdinalIgnoreCase))
+                //{
+                    var user = await _userService.GetUserByNumber(from);
+                    if (user.Frequency == null)
+                        user.Frequency = new Models.UserFrequency();
 
-                user.Frequency.Frequency = Enums.MessageFrequency.Never;
+                    user.Frequency.Frequency = Enums.MessageFrequency.Never;
 
-                await _userService.SaveUser(user.Id, user);
+                    await _userService.SaveUser(user.Id, user);
+                //}
             }
             finally
             {
