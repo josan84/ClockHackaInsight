@@ -13,7 +13,7 @@ namespace ClockHackInsight.Backend
 {
     public class Worker : BackgroundService
     {
-        const int SECURITY_COUNTER = 5;
+        const int SECURITY_COUNTER = 1;
 
         private readonly ILogger<Worker> _logger;
 
@@ -24,7 +24,7 @@ namespace ClockHackInsight.Backend
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            int iterations = 1;
+            int iterations = 0;
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -39,36 +39,27 @@ namespace ClockHackInsight.Backend
 
                 var messageBroadcasterService = new MessageBroadcastService();
 
-                var pollingFrequencyHelper = new PollingFrequencyHelper();
+                var userService = new UserService(new DocumentDBRepository<User>("Users"));
 
-                IList<PollingResponse> pollingResponses = pollingFrequencyHelper.GetUsersToMessage();
+                var users = userService.GetAllUsers().Result;
 
-                foreach (var userData in pollingResponses)
+                foreach (var user in users)
                 {
-                    var randomQuote = motivationalQuoteService.GetRandomQuote();
-
-                    MotivationalQuote quote = randomQuote.Result;
-
-                    var userService = new UserService(new DocumentDBRepository<User>("Users"));
+                    MotivationalQuote randomQuote = motivationalQuoteService.GetRandomQuote().Result;
 
                     var now = DateTime.Now;
 
-                    var user = new User();
-
-                    messageBroadcasterService.SendMessage(userData.Name, userData.Number, quote.Quote);
+                    messageBroadcasterService.SendMessage(user.Name, user.Number, randomQuote.Quote);
 
                     var userFrequency = new UserFrequency
                     {
-                        LastMessaged = now
+                        LastMessaged = now,
+                        Frequency = user.Frequency.Frequency
                     };
-
-                    user.Id = userData.Id;
-                    user.Name = userData.Name;
-                    user.Number = userData.Number;
 
                     user.Frequency = userFrequency;
 
-                    // await userService.UpdateUser(userData.Id, user);
+                    await userService.UpdateUser(user.Id, user);
                 }
 
                 await Task.Delay(3000, stoppingToken);

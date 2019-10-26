@@ -15,18 +15,29 @@ namespace ClockHackaInsight.Backend.Controllers
             _userService = userService;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Post(
-        //    [FromQuery] string to, [FromQuery] string from,
-        //    [FromQuery] string keyword, [FromQuery] string id, 
-        //    [FromQuery] string content)
-        //{
-        //    if (from.StartsWith("0"))
-        //        from = from.Substring(0,1)
-        //            from.Replace("0", "44");
-        //    var user = _userService.GetUserByNumber(from);
+        [HttpPost]
+        public async Task<IActionResult> Post(
+            [FromQuery] string to, [FromQuery] string from,
+            [FromQuery] string keyword, [FromQuery] string id,
+            [FromQuery] string content)
+        {
+            try
+            {
+                if (from.StartsWith("44"))
+                    from = "0" + from[1..];
 
-        //    return Ok(true);
-        //}
+                var user = await _userService.GetUserByNumber(from);
+                if (user.Frequency == null)
+                    user.Frequency = new Models.UserFrequency();
+
+                user.Frequency.Frequency = Enums.MessageFrequency.Never;
+
+                await _userService.SaveUser(user.Id, user);
+            }
+            finally
+            {
+            }
+            return Ok(true);
+        }
     }
 }

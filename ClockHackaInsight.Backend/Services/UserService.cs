@@ -65,5 +65,10 @@ namespace ClockHackaInsight.Backend.Services
 
             return results.FirstOrDefault();
         }
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await userRepository.GetAllItems();
+        }
     }
 }
