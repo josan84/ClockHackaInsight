@@ -36,6 +36,7 @@ namespace ClockHackaInsight.Backend
 
             services.AddTransient<IUserService, UserService>();
             services.AddHostedService<Worker>();
+            services.AddHostedService<HeartbeatWorker>();
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new Info { Title = "Insight Investment Clockwork Backend", Version = "v1" });
