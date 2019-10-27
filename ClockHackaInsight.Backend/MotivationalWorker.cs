@@ -59,48 +59,53 @@ namespace ClockHackInsight.Backend
 
             foreach (var user in users)
             {
-                MotivationalQuote randomQuote = _motivationalQuotesService.GetRandomQuote().Result;
-
-                var now = DateTime.Now;
-
-                bool mustSend = false;
-
-                if (user.Frequency.Frequency == MessageFrequency.Day)
+                // For demo 
+                if (user.Name.ToLower() == "jose")
                 {
-                    if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromDays(-1))
+
+                    MotivationalQuote randomQuote = _motivationalQuotesService.GetRandomQuote().Result;
+
+                    var now = DateTime.Now;
+
+                    bool mustSend = false;
+
+                    if (user.Frequency.Frequency == MessageFrequency.Day)
                     {
-                        mustSend = true;
+                        if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromDays(-1))
+                        {
+                            mustSend = true;
+                        }
                     }
-                }
-                else if (user.Frequency.Frequency == MessageFrequency.Hour)
-                {
-                    if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromHours(-1))
+                    else if (user.Frequency.Frequency == MessageFrequency.Hour)
                     {
-                        mustSend = true;
+                        if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromHours(-1))
+                        {
+                            mustSend = true;
+                        }
                     }
-                }
-                else if (user.Frequency.Frequency == MessageFrequency.Minute)
-                {
-                    if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromMinutes(-1))
+                    else if (user.Frequency.Frequency == MessageFrequency.Minute)
                     {
-                        mustSend = true;
+                        if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromMinutes(-1))
+                        {
+                            mustSend = true;
+                        }
                     }
+
+                    if (mustSend)
+                    {
+                        _messageBroadcastService.SendMessage(user.Name, user.Number, $"{randomQuote.Quote}. To stop receiving these messages reply STOP.");
+                    }
+
+                    var userFrequency = new UserFrequency
+                    {
+                        LastMessaged = now,
+                        Frequency = user.Frequency.Frequency
+                    };
+
+                    user.Frequency = userFrequency;
+
+                    await _userService.UpdateUser(user.Id, user);
                 }
-
-                if (mustSend)
-                {
-                    _messageBroadcastService.SendMessage(user.Name, user.Number, $"{randomQuote.Quote}. To stop receiving these messages reply STOP.");
-                }
-
-                var userFrequency = new UserFrequency
-                {
-                    LastMessaged = now,
-                    Frequency = user.Frequency.Frequency
-                };
-
-                user.Frequency = userFrequency;
-
-                await _userService.UpdateUser(user.Id, user);
             }
 
             _interations++;

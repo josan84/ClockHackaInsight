@@ -29,7 +29,7 @@ namespace ClockHackaInsight.Backend
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(DiscoverEvents, null, TimeSpan.Zero, TimeSpan.FromMinutes(100));
+            _timer = new Timer(DiscoverEvents, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
 
             return Task.CompletedTask;
         }
@@ -51,25 +51,31 @@ namespace ClockHackaInsight.Backend
 
                 foreach (var user in users)
                 {
-                    if (user.EventSocialEnabled && ev.EventType == Models.EventType.Social
-                       && ev.EventDateTime > DateTime.Now)
+                    // For demo
+                    if (user.Name.ToLower() == "jose")
                     {
-                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
-                    }
-                    else if (user.EventTherapyEnabled && ev.EventType == Models.EventType.Therapy
-                       && ev.EventDateTime > DateTime.Now)
-                    {
-                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
-                    }
-                    else if (user.EventConferenceEnabled && ev.EventType == Models.EventType.Conference
-                       && ev.EventDateTime > DateTime.Now)
-                    {
-                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
-                    }
-                    else if (user.EventSportEnabled && ev.EventType == Models.EventType.Sport
-                      && ev.EventDateTime > DateTime.Now)
-                    {
-                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
+
+
+                        if (user.EventSocialEnabled && ev.EventType == Models.EventType.Social
+                           && ev.EventDateTime > DateTime.Now)
+                        {
+                            _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
+                        }
+                        else if (user.EventTherapyEnabled && ev.EventType == Models.EventType.Therapy
+                           && ev.EventDateTime > DateTime.Now)
+                        {
+                            _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
+                        }
+                        else if (user.EventConferenceEnabled && ev.EventType == Models.EventType.Conference
+                           && ev.EventDateTime > DateTime.Now)
+                        {
+                            _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
+                        }
+                        else if (user.EventSportEnabled && ev.EventType == Models.EventType.Sport
+                          && ev.EventDateTime > DateTime.Now)
+                        {
+                            _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
+                        }
                     }
                 }
             }

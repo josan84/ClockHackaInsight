@@ -7,7 +7,7 @@ namespace ClockHackaInsight.Backend.Services
 {
     public class MessageBroadcastService : IMessageBroadcastService
     {
-        const string APIKey = "94cb22faffa3f64e4fca84afa78c7b472c97fd9f";
+        const string APIKey = "cef9183405b669b2b26ac1fa11356fa28a8e4152";
 
         const string JoshNumber = "447952316758";
         const string JacobNumber = "447507100781";
