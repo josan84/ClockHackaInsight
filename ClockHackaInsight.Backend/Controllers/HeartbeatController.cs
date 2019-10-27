@@ -29,7 +29,11 @@ namespace ClockHackaInsight.Backend.Controllers
         {
             return Ok(new List<HeartbeatHistory>
             {
-                new HeartbeatHistory{AverageBpm = 120, DateTime = DateTime.Now}
+                new HeartbeatHistory{AverageBpm = 120, DateTime = DateTime.Now.AddDays(-10)},
+                new HeartbeatHistory{AverageBpm = 130, DateTime = DateTime.Now.AddDays(-9)},
+                new HeartbeatHistory{AverageBpm = 140, DateTime = DateTime.Now.AddDays(-8)},
+                new HeartbeatHistory{AverageBpm = 120, DateTime = DateTime.Now.AddDays(-2)},
+                new HeartbeatHistory{AverageBpm = 100, DateTime = DateTime.Now.AddDays(-1)}
             });
         }
     }
