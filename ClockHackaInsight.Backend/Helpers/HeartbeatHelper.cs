@@ -31,7 +31,8 @@ namespace ClockHackaInsight.Backend.Helpers
                 var builder = new StringBuilder();
                 builder.AppendLine("We noticed you are particuarly stressed.");
                 builder.AppendLine("If false alarm reply OK.");
-                builder.AppendLine("If you need advice reply HELP.");
+                builder.AppendLine("If you need a grounding exercise reply HELP.");
+                builder.AppendLine("If you need advice reply ADVICE.");
                 messageBroadcastService.SendMessage(user.Name, user.Number, builder.ToString());
                 user.AwaitingResponse = true;
                 user.BpmMessageSentTime = DateTime.Now;

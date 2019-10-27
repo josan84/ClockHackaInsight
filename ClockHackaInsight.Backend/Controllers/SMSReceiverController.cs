@@ -60,6 +60,10 @@ namespace ClockHackaInsight.Backend.Controllers
                         user.Frequency = new Models.UserFrequency();
 
                     user.Frequency.Frequency = Enums.MessageFrequency.Never;
+                    user.EventConferenceEnabled = false;
+                    user.EventSocialEnabled = false;
+                    user.EventSportEnabled = false;
+                    user.EventTherapyEnabled = false;
 
                     await _userService.SaveUser(user.Id, user);
                 }
