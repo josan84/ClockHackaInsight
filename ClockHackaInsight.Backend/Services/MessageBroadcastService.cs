@@ -14,11 +14,6 @@ namespace ClockHackaInsight.Backend.Services
         const string TobyNumber = "447498330042";
         const string JoseNumber = "447761389099";
 
-        public void SendMessage()
-        {
-            Send("Josh", "447952316758", "Hello my love, guess who I am.");
-        }
-
         public void SendMessage(User user, string messageContent)
         {
             Send(user.Name, user.Number, messageContent);
