@@ -13,7 +13,7 @@ namespace ClockHackaInsight.Backend.Models
         public string Name { get; set; }
         public string Number { get;  set; }
         public bool AwaitingResponse { get; set; }
-        public DateTime BpmMessageSentTime { get; set; }
+        public DateTime? BpmMessageSentTime { get; set; }
         public EmergencyContact EmergencyContact { get; set; }
         public UserFrequency Frequency { get; set; }
     }

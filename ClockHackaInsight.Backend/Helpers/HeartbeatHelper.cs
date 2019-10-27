@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Services;
 
@@ -21,6 +22,9 @@ namespace ClockHackaInsight.Backend.Helpers
             {
                 var user = await userService.GetUserById(heartbeat.UserId);
                 messageBroadcastService.SendMessage(user.Name, user.Number, "We noticed you are particuarly stressed. Reply OK if it is a false alarm");
+                user.AwaitingResponse = true;
+                user.BpmMessageSentTime = DateTime.Now;
+                var callback = await userService.SaveUser(user.Id, user);
             }
 
             return true;

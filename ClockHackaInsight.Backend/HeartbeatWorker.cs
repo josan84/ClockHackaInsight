@@ -24,25 +24,29 @@ namespace ClockHackaInsight.Backend
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            int iterations = 0;
+            var users = await userService.GetAllUsers();
 
-            while (!stoppingToken.IsCancellationRequested)
+            foreach (var user in users)
             {
-                var users = await userService.GetAllUsers(); //TODO: Get All Users
-
-                foreach (var user in users)
+                if (user.AwaitingResponse && user.BpmMessageSentTime + new TimeSpan(0, 10, 0) > DateTime.Now)
                 {
-                    if (user.AwaitingResponse && user.BpmMessageSentTime + new TimeSpan(0, 10, 0) > DateTime.Now)
+                    messageBroadcastService.SendMessage(user.EmergencyContact.Name, user.EmergencyContact.Number, $"We have had an alert from {user.Name}");
+                    var userToPut = new User()
                     {
-                        messageBroadcastService.SendMessage(user.EmergencyContact.Name, user.EmergencyContact.Number, $"We have had an alert from {user.Name}");
-                    }
+                        Id = user.Id,
+                        Name = user.Name,
+                        Number = user.Number,
+                        Frequency = user.Frequency,
+                        AwaitingResponse = user.AwaitingResponse,
+                        BpmMessageSentTime = user.BpmMessageSentTime,
+                        EmergencyContact = user.EmergencyContact
+                    };
+
+                    var callback = userService.SaveUser(user.Id, userToPut);
                 }
-
-                await Task.Delay(3000, stoppingToken);
-
-                iterations++;
             }
 
+            await Task.Delay(3000, stoppingToken);
         }
     }
 }
