@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend
 {
-    public class HeartbeatWorker : BackgroundService
+    public class HeartbeatWorker : IHostedService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IUserService userService;
         private readonly IMessageBroadcastService messageBroadcastService;
+        private Timer _timer;
 
         public HeartbeatWorker(IUserService userService, IMessageBroadcastService messageBroadcastService)
         {
@@ -22,7 +23,20 @@ namespace ClockHackaInsight.Backend
             this.messageBroadcastService = messageBroadcastService;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            _timer = new Timer(MessageEmergencyContact, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+
+            return Task.CompletedTask;
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _timer?.Change(Timeout.Infinite, 0);
+            return Task.CompletedTask;
+        }
+
+        private async void MessageEmergencyContact(object state)
         {
             var users = await userService.GetAllUsers();
 
@@ -45,8 +59,6 @@ namespace ClockHackaInsight.Backend
                     var callback = userService.SaveUser(user.Id, userToPut);
                 }
             }
-
-            await Task.Delay(3000, stoppingToken);
         }
     }
 }
