@@ -31,14 +31,22 @@ namespace ClockHackaInsight.Backend
 
             services.AddSingleton<IHeartbeatHelper, HeartbeatHelper>();
             services.AddSingleton<IMessageBroadcastService, MessageBroadcastService>();
+            services.AddSingleton<IMotivationalQuotesService, MotivationalQuotesService>();
+            services.AddSingleton<IEventService, EventService>();
+
             services.AddSingleton<IDocumentDBRepository<User>>(new DocumentDBRepository<User>("Users"));
             services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
             services.AddApplicationInsightsTelemetry();
+            services.AddSingleton<IDocumentDBRepository<Event>>(new DocumentDBRepository<Event>("Events"));
 
             services.AddTransient<IUserService, UserService>();
+            
+            services.AddHostedService<MotivationalWorker>();
             services.AddTransient<IPanicHelper, PanicHelper>();
             services.AddHostedService<Worker>();
             services.AddHostedService<HeartbeatWorker>();
+            services.AddHostedService<EventWorker>();
+
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new Info { Title = "Insight Investment Clockwork Backend", Version = "v1" });
