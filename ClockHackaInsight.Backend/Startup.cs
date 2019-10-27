@@ -43,7 +43,6 @@ namespace ClockHackaInsight.Backend
             
             services.AddHostedService<MotivationalWorker>();
             services.AddTransient<IPanicHelper, PanicHelper>();
-            services.AddHostedService<Worker>();
             services.AddHostedService<HeartbeatWorker>();
             services.AddHostedService<EventWorker>();
 
