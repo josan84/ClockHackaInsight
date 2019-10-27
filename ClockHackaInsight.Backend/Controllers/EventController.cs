@@ -9,22 +9,29 @@ namespace ClockHackaInsight.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SMSBroadcastController : ControllerBase
+    public class EventController : ControllerBase
     {
-        // GET: api/SMS
+        // GET: api/Event
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
-        
-        // POST: api/SMS
+
+        // GET: api/Event/5
+        [HttpGet("{id}", Name = "Get")]
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST: api/Event
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/SMS/5
+        // PUT: api/Event/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {

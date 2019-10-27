@@ -17,22 +17,26 @@ namespace ClockHackInsight.Backend
         const int SECURITY_COUNTER = 1;
 
         private readonly ILogger<MotivationalWorker> _logger;
+
         private readonly IMotivationalQuotesService _motivationalQuotesService;
         private readonly IMessageBroadcastService _messageBroadcastService;
+        private readonly IUserService _userService;
 
         private Timer _timer;
         private int _interations = 0;
 
-        public MotivationalWorker(ILogger<MotivationalWorker> logger, IMotivationalQuotesService motivationalQuotesService, IMessageBroadcastService messageBroadcastService)
+        public MotivationalWorker(ILogger<MotivationalWorker> logger, IMotivationalQuotesService motivationalQuotesService, IMessageBroadcastService messageBroadcastService, IUserService userService)
         {
             _logger = logger;
+
             _motivationalQuotesService = motivationalQuotesService;
             _messageBroadcastService = messageBroadcastService;
+            _userService = userService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(DiscoverMotivationals, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+            _timer = new Timer(DiscoverMotivationals, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
 
             return Task.CompletedTask;
         }
@@ -51,9 +55,7 @@ namespace ClockHackInsight.Backend
 
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-            var userService = new UserService(new DocumentDBRepository<User>("Users"));
-
-            var users = await userService.GetAllUsers();
+            var users = await _userService.GetAllUsers();
 
             foreach (var user in users)
             {
@@ -65,21 +67,21 @@ namespace ClockHackInsight.Backend
 
                 if (user.Frequency.Frequency == MessageFrequency.Day)
                 {
-                    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromDays(-1))
+                    if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromDays(-1))
                     {
                         mustSend = true;
                     }
                 }
                 else if (user.Frequency.Frequency == MessageFrequency.Hour)
                 {
-                    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromHours(-1))
+                    if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromHours(-1))
                     {
                         mustSend = true;
                     }
                 }
                 else if (user.Frequency.Frequency == MessageFrequency.Minute)
                 {
-                    if (now.Subtract(user.Frequency.LastMessaged) <= TimeSpan.FromMinutes(-1))
+                    if (now.Subtract(user.Frequency.LastMessaged) > TimeSpan.FromMinutes(-1))
                     {
                         mustSend = true;
                     }
@@ -98,7 +100,7 @@ namespace ClockHackInsight.Backend
 
                 user.Frequency = userFrequency;
 
-                await userService.UpdateUser(user.Id, user);
+                await _userService.UpdateUser(user.Id, user);
             }
 
             _interations++;
