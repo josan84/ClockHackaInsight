@@ -1,8 +1,7 @@
 ﻿using ClockHackaInsight.Backend.Helpers;
 using ClockHackaInsight.Backend.Models;
+using ClockHackaInsight.Backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend.Controllers
@@ -12,9 +11,11 @@ namespace ClockHackaInsight.Backend.Controllers
     public class HeartbeatController : ControllerBase
     {
         private readonly IHeartbeatHelper _helper;
+        private readonly IUserService _userService;
 
-        public HeartbeatController(IHeartbeatHelper helper)
+        public HeartbeatController(IHeartbeatHelper helper, IUserService userService)
         {
+            _userService = userService;
             _helper = helper;
         }
 
@@ -27,14 +28,7 @@ namespace ClockHackaInsight.Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery]string userId)
         {
-            return Ok(new List<HeartbeatHistory>
-            {
-                new HeartbeatHistory{AverageBpm = 120, DateTime = DateTime.Now.AddDays(-10)},
-                new HeartbeatHistory{AverageBpm = 130, DateTime = DateTime.Now.AddDays(-9)},
-                new HeartbeatHistory{AverageBpm = 140, DateTime = DateTime.Now.AddDays(-8)},
-                new HeartbeatHistory{AverageBpm = 120, DateTime = DateTime.Now.AddDays(-2)},
-                new HeartbeatHistory{AverageBpm = 100, DateTime = DateTime.Now.AddDays(-1)}
-            });
+            return Ok(await _userService.GetUserById(userId));
         }
     }
 }
