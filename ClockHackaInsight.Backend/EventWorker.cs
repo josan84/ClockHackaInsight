@@ -47,32 +47,30 @@ namespace ClockHackaInsight.Backend
 
             foreach (var ev in events)
             {
+                string eventMessage = $"{ev.Content}. Date and Time: {ev.EventDateTime}";
+
                 foreach (var user in users)
                 {
                     if (user.EventSocialEnabled && ev.EventType == Models.EventType.Social
                        && ev.EventDateTime > DateTime.Now)
                     {
-
+                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
                     }
                     else if (user.EventTherapyEnabled && ev.EventType == Models.EventType.Therapy
                        && ev.EventDateTime > DateTime.Now)
                     {
-
+                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
                     }
                     else if (user.EventConferenceEnabled && ev.EventType == Models.EventType.Conference
                        && ev.EventDateTime > DateTime.Now)
                     {
-
+                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
                     }
                     else if (user.EventSpotEnabled && ev.EventType == Models.EventType.Sport
                       && ev.EventDateTime > DateTime.Now)
                     {
-
+                        _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
                     }
-
-                    string eventMessage = $"{ev.Content}. Date and Time: {ev.EventDateTime}";
-
-                    _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
                 }
             }
         }
