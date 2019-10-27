@@ -12,7 +12,7 @@ namespace ClockHackaInsight.Backend
 {
     public class HeartbeatWorker : IHostedService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<MotivationalWorker> _logger;
         private readonly IUserService userService;
         private readonly IMessageBroadcastService messageBroadcastService;
         private Timer _timer;
