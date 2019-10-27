@@ -21,5 +21,11 @@ namespace ClockHackaInsight.Backend.Controllers
         {
             return Ok(await _helper.ExecuteHeartbeatProtocol(heartbeat));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]string userId)
+        {
+            return Ok()
+        }
     }
 }
