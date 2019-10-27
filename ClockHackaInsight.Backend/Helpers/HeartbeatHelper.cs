@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Services;
+using System.Collections.Generic;
 
 namespace ClockHackaInsight.Backend.Helpers
 {
@@ -29,7 +30,10 @@ namespace ClockHackaInsight.Backend.Helpers
                 messageBroadcastService.SendMessage(user.Name, user.Number, builder.ToString());
                 user.AwaitingResponse = true;
                 user.BpmMessageSentTime = DateTime.Now;
-                var callback = await userService.SaveUser(user.Id, user);
+                if (user.HeartbeatHistory == null)
+                    user.HeartbeatHistory = new List<HeartbeatHistory>();
+                user.HeartbeatHistory.Add(new HeartbeatHistory { AverageBpm = heartbeat.AverageBpm, DateTime = DateTime.Now }); 
+                await userService.SaveUser(user.Id, user);
             }
 
             return true;
