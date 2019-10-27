@@ -1,6 +1,8 @@
 ﻿using ClockHackaInsight.Backend.Helpers;
 using ClockHackaInsight.Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend.Controllers
@@ -20,6 +22,15 @@ namespace ClockHackaInsight.Backend.Controllers
         public async Task<IActionResult> Post([FromBody] HeartbeatData heartbeat)
         {
             return Ok(await _helper.ExecuteHeartbeatProtocol(heartbeat));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]string userId)
+        {
+            return Ok(new List<HeartbeatHistory>
+            {
+                new HeartbeatHistory{AverageBpm = 120, DateTime = DateTime.Now}
+            });
         }
     }
 }

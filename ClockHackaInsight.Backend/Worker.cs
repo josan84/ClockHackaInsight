@@ -24,6 +24,7 @@ namespace ClockHackInsight.Backend
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            return;
             int iterations = 0;
 
             while (!stoppingToken.IsCancellationRequested)
