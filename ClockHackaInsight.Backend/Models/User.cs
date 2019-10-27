@@ -16,6 +16,6 @@ namespace ClockHackaInsight.Backend.Models
         public DateTime? BpmMessageSentTime { get; set; }
         public EmergencyContact EmergencyContact { get; set; }
         public UserFrequency Frequency { get; set; }
-        public List<HeartbeatHistory> HeartbeatHistory { get; set; }
+        public IEnumerable<HeartbeatHistory> HeartbeatHistory { get; set; }
     }
 }
