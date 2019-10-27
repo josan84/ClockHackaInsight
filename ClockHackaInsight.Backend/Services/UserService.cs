@@ -50,6 +50,10 @@ namespace ClockHackaInsight.Backend.Services
             userToUpdate.AwaitingResponse = user.AwaitingResponse;
             userToUpdate.BpmMessageSentTime = user.BpmMessageSentTime;
             userToUpdate.EmergencyContact = user.EmergencyContact;
+            userToUpdate.EventConferenceEnabled = user.EventConferenceEnabled;
+            userToUpdate.EventSocialEnabled = user.EventSocialEnabled;
+            userToUpdate.EventSportEnabled = user.EventSportEnabled;
+            userToUpdate.EventTherapyEnabled = user.EventTherapyEnabled;
             userToUpdate.HeartbeatHistory = user.HeartbeatHistory;
 
             await userRepository.UpdateItemAsync(id, userToUpdate);
