@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Text;
+using System;
 using System.Threading.Tasks;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Services;
@@ -20,8 +21,12 @@ namespace ClockHackaInsight.Backend.Helpers
         {
             if (heartbeat.AverageBpm > 100 && heartbeat.IsOutlyingStatus)
             {
+                var builder = new StringBuilder();
+                builder.AppendLine("We noticed you are particuarly stressed.");
+                builder.AppendLine("If false alarm reply OK.");
+                builder.AppendLine("If you need advice reply HELP.");
                 var user = await userService.GetUserById(heartbeat.UserId);
-                messageBroadcastService.SendMessage(user.Name, user.Number, "We noticed you are particuarly stressed. Reply OK if it is a false alarm");
+                messageBroadcastService.SendMessage(user.Name, user.Number, builder.ToString());
                 user.AwaitingResponse = true;
                 user.BpmMessageSentTime = DateTime.Now;
                 var callback = await userService.SaveUser(user.Id, user);

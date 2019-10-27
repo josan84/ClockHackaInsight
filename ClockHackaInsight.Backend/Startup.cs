@@ -30,6 +30,7 @@ namespace ClockHackaInsight.Backend
             services.AddControllers();
 
             services.AddSingleton<IHeartbeatHelper, HeartbeatHelper>();
+            services.AddSingleton<IMessageBroadcastService, MessageBroadcastService>();
             services.AddSingleton<IDocumentDBRepository<User>>(new DocumentDBRepository<User>("Users"));
             services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
 

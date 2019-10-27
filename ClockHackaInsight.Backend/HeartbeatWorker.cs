@@ -38,7 +38,7 @@ namespace ClockHackaInsight.Backend
                         Number = user.Number,
                         Frequency = user.Frequency,
                         AwaitingResponse = user.AwaitingResponse,
-                        BpmMessageSentTime = user.BpmMessageSentTime,
+                        BpmMessageSentTime = null,
                         EmergencyContact = user.EmergencyContact
                     };
 
