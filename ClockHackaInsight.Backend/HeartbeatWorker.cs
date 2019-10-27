@@ -28,7 +28,7 @@ namespace ClockHackaInsight.Backend
 
             foreach (var user in users)
             {
-                if (user.AwaitingResponse && user.BpmMessageSentTime + new TimeSpan(0, 10, 0) > DateTime.Now)
+                if (user.AwaitingResponse && user.BpmMessageSentTime + new TimeSpan(0, 0, 30) > DateTime.Now)
                 {
                     messageBroadcastService.SendMessage(user.EmergencyContact.Name, user.EmergencyContact.Number, $"We have had an alert from {user.Name}");
                     var userToPut = new User()
