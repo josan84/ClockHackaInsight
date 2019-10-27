@@ -79,6 +79,11 @@ namespace ClockHackInsight.Backend
                     }
                 }
 
+                else if (user.Frequency.Frequency == MessageFrequency.Never)
+                {
+                    mustSend = false;
+                }
+
                 if (mustSend)
                 {
                     _messageBroadcastService.SendMessage(user.Name, user.Number, $"{randomQuote.Quote}. To stop receiving these messages reply STOP.");
