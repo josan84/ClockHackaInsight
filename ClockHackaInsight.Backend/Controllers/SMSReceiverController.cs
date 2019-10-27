@@ -35,7 +35,7 @@ namespace ClockHackaInsight.Backend.Controllers
                     from = "0" + from[2..];
                 var user = await _userService.GetUserByNumber(from);
 
-                if (content!= null && content.Contains("HELP", System.StringComparison.OrdinalIgnoreCase))
+                if (content!= null && content.Contains("ADVICE", System.StringComparison.OrdinalIgnoreCase))
                 {
                     user.AwaitingResponse = false;
                     await _userService.SaveUser(user.Id, user);
@@ -47,11 +47,15 @@ namespace ClockHackaInsight.Backend.Controllers
                     user.AwaitingResponse = false;
                     await _userService.SaveUser(user.Id, user);
                 }
-                else
+                else if (content != null && content.Contains("HELP", System.StringComparison.OrdinalIgnoreCase))
                 {
-
-                    //if (content.Contains("STOP", System.StringComparison.OrdinalIgnoreCase))
-                    //{
+                    user.AwaitingResponse = false;
+                    await _userService.SaveUser(user.Id, user);
+                    var message = await _panicHelper.GroundMe(user);
+                    _messageBroadcastService.SendMessage(user.Name, user.Number, message);
+                }
+                else if (content != null && content.Contains("STOP", System.StringComparison.OrdinalIgnoreCase))
+                { 
                     if (user.Frequency == null)
                         user.Frequency = new Models.UserFrequency();
 
@@ -59,7 +63,6 @@ namespace ClockHackaInsight.Backend.Controllers
 
                     await _userService.SaveUser(user.Id, user);
                 }
-                //}
             }
             finally
             {

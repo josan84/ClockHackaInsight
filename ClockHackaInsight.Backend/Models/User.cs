@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClockHackaInsight.Backend.Models
 {
@@ -17,5 +15,6 @@ namespace ClockHackaInsight.Backend.Models
         public EmergencyContact EmergencyContact { get; set; }
         public UserFrequency Frequency { get; set; }
         public IEnumerable<HeartbeatHistory> HeartbeatHistory { get; set; }
+        public GroundingExercise GroundingExercise { get; set; }
     }
 }

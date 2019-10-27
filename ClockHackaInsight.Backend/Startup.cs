@@ -33,8 +33,10 @@ namespace ClockHackaInsight.Backend
             services.AddSingleton<IMessageBroadcastService, MessageBroadcastService>();
             services.AddSingleton<IDocumentDBRepository<User>>(new DocumentDBRepository<User>("Users"));
             services.AddSingleton<IDocumentDBRepository<MotivationalQuote>>(new DocumentDBRepository<MotivationalQuote>("Quotes"));
+            services.AddApplicationInsightsTelemetry();
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPanicHelper, PanicHelper>();
             services.AddHostedService<Worker>();
             services.AddHostedService<HeartbeatWorker>();
             //services.AddSwaggerGen(c =>
