@@ -45,18 +45,11 @@ namespace ClockHackaInsight.Backend
                 if (user.AwaitingResponse && ((user.BpmMessageSentTime + new TimeSpan(0, 0, 10)) > DateTime.Now))
                 {
                     messageBroadcastService.SendMessage(user.EmergencyContact.Name, user.EmergencyContact.Number, $"We noticed {user.Name} has an unusually high heartrate. Please call them to make sure everything is ok on {user.Number}");
-                    var userToPut = new User()
-                    {
-                        Id = user.Id,
-                        Name = user.Name,
-                        Number = user.Number,
-                        Frequency = user.Frequency,
-                        AwaitingResponse = user.AwaitingResponse,
-                        BpmMessageSentTime = null,
-                        EmergencyContact = user.EmergencyContact
-                    };
+                    
+                    user.BpmMessageSentTime = null;
+                    user.AwaitingResponse = false;
 
-                    var callback = userService.SaveUser(user.Id, userToPut);
+                    var callback = userService.SaveUser(user.Id, user);
                 }
             }
         }
