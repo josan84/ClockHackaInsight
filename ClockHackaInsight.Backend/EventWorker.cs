@@ -66,7 +66,7 @@ namespace ClockHackaInsight.Backend
                     {
                         _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);
                     }
-                    else if (user.EventSpotEnabled && ev.EventType == Models.EventType.Sport
+                    else if (user.EventSportEnabled && ev.EventType == Models.EventType.Sport
                       && ev.EventDateTime > DateTime.Now)
                     {
                         _messageBroadcastService.SendMessage(user.Name, user.Number, eventMessage);

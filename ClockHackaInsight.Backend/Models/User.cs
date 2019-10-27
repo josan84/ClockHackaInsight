@@ -23,6 +23,6 @@ namespace ClockHackaInsight.Backend.Models
         public bool EventSocialEnabled { get; set; }
         public bool EventTherapyEnabled { get; set; }
         public bool EventConferenceEnabled { get; set; }
-        public bool EventSpotEnabled { get; set; }
+        public bool EventSportEnabled { get; set; }
     }
 }
