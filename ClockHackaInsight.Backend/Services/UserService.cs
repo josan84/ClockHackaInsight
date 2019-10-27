@@ -55,6 +55,7 @@ namespace ClockHackaInsight.Backend.Services
             userToUpdate.EventSportEnabled = user.EventSportEnabled;
             userToUpdate.EventTherapyEnabled = user.EventTherapyEnabled;
             userToUpdate.HeartbeatHistory = user.HeartbeatHistory;
+            userToUpdate.GroundingExercise = user.GroundingExercise;
 
             await userRepository.UpdateItemAsync(id, userToUpdate);
             return user;
