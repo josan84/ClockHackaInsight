@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System;
 using System.Threading.Tasks;
 using ClockHackaInsight.Backend.Models;
 using ClockHackaInsight.Backend.Services;
@@ -26,6 +27,9 @@ namespace ClockHackaInsight.Backend.Helpers
                 builder.AppendLine("If you need advice reply HELP.");
                 var user = await userService.GetUserById(heartbeat.UserId);
                 messageBroadcastService.SendMessage(user.Name, user.Number, builder.ToString());
+                user.AwaitingResponse = true;
+                user.BpmMessageSentTime = DateTime.Now;
+                var callback = await userService.SaveUser(user.Id, user);
             }
 
             return true;
