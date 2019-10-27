@@ -21,11 +21,11 @@ namespace ClockHackaInsight.Backend.Helpers
 
         public PanicHelper(IUserService userService)
         {
-            grounding.Add(1, "Reply with 1 thing you can smell");
-            grounding.Add(2, "Reply with 2 things you can taste");
-            grounding.Add(3, "Reply with 3 things you can feel");
-            grounding.Add(4, "Reply with 4 things you can hear");
-            grounding.Add(5, "Reply with 5 things you can see");
+            grounding.Add(1, "Reply HELP with 1 thing you can smell");
+            grounding.Add(2, "Reply HELP with 2 things you can taste");
+            grounding.Add(3, "Reply HELP with 3 things you can feel");
+            grounding.Add(4, "Reply HELP with 4 things you can hear");
+            grounding.Add(5, "Reply HELP with 5 things you can see");
             _userService = userService;
         }
 
